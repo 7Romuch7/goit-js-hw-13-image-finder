@@ -1,0 +1,1 @@
+import './scriptes/imageSearch.js';
