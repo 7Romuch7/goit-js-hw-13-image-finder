@@ -10,11 +10,19 @@ getRefs.loadMoreBtn.addEventListener('click', onloadMore);
 function onSearch(event) {
     event.preventDefault();
 
+    const form = event.currentTarget;
+    const input = form.elements.query;
+
     clearImageList();
 
-    imageApiService.query = event.currentTarget.elements.query.value
+    imageApiService.query = input.value;
+
     imageApiService.resetPage();
-    imageApiService.fetchImage().then(appendImageMarkup);
+    imageApiService.fetchImage().then(images => {
+        const markup = buildImageTpl(images);
+        appendImageMarkup(markup);
+    });
+    input.value = '';
 }
 
 function onloadMore(event) {
