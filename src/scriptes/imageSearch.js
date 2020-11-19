@@ -1,6 +1,6 @@
 import imgCardTpl from '../templates/images.hbs';
 import getRefs from '../scriptes/refs.js';
-import ImageApiService from '../scriptes/apiService.js';
+import ImageApiService from '../scriptes/apiService';
 
 const imageApiService = new ImageApiService();
 
@@ -19,7 +19,7 @@ function onSearch(event) {
     imageApiService.searchQuery = input.value;
 
     imageApiService.fetchImage().then(data => {
-        const murkup = buildImageListTpl(data );
+        const murkup = buildImageListTpl(data);
         appendImageMarkup(murkup);
     });
     input.value = '';
