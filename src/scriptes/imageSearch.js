@@ -10,7 +10,7 @@ getRefs.loadMoreBtn.addEventListener('click', onloadMore);
 function onSearch(event) {
     event.preventDefault();
 
-    const form = e.currentTarget;
+    const form = event.currentTarget;
     const input = form.elements.query;
 
     clearImageList();
@@ -19,7 +19,7 @@ function onSearch(event) {
     imageApiService.searchQuery = input.value;
 
     imageApiService.fetchImage().then(data => {
-        const murkup = buildImageListTpl(data);
+        const murkup = buildImageListTpl(data );
         appendImageMarkup(murkup);
     });
     input.value = '';
