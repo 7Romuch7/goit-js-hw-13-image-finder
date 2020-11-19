@@ -1,4 +1,4 @@
-import imgCardTpl from '../templates/image-card.hbs';
+import imgCardTpl from '../templates/images.hbs';
 import getRefs from '../scriptes/refs.js';
 import ImageApiService from '../scriptes/apiService.js';
 
@@ -10,17 +10,17 @@ getRefs.loadMoreBtn.addEventListener('click', onloadMore);
 function onSearch(event) {
     event.preventDefault();
 
-    const form = event.currentTarget;
+    const form = e.currentTarget;
     const input = form.elements.query;
 
     clearImageList();
 
-    imageApiService.query = input.value;
-
     imageApiService.resetPage();
-    imageApiService.fetchImage().then(images => {
-        const markup = buildImageTpl(images);
-        appendImageMarkup(markup);
+    imageApiService.searchQuery = input.value;
+
+    imageApiService.fetchImage().then(data => {
+        const murkup = buildImageListTpl(data);
+        appendImageMarkup(murkup);
     });
     input.value = '';
 }
@@ -33,7 +33,7 @@ function appendImageMarkup(images) {
     getRefs.galleryImage.insertAdjacentHTML('beforeend', images);
 }
 
-function buildImageTpl(images) {
+function buildImageListTpl(images) {
     return imgCardTpl(images);
 }
 

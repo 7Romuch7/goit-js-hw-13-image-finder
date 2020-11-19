@@ -8,9 +8,14 @@ export default class ImageApiService {
     }
     async fetchImage() {
         const url = `?image_type=photo&orientation=horizontal&q=${this.searchQuery}&page=${this.page}&per_page=12&key=${API_KEY}`;
-        const responsive = await fetch(BASE_URL + url);
-        const parseRes = await responsive.json();
-        return parseRes.images;
+        const params = await fetch(BASE_URL + url);
+        const parseParams = await params.json();
+        this.incrementPage();
+        return parseParams.data;
+    }
+
+    incrementPage() {
+        this.page += 1;
     }
 
     resetPage() {
@@ -24,4 +29,4 @@ export default class ImageApiService {
     set query(newQuery) {
         this.searchQuery = newQuery;
     }
-};
+}
